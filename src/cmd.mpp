@@ -1,0 +1,36 @@
+module;
+
+#include "cxxopts.hpp"
+
+export module cli;
+
+import version;
+
+export namespace gfmt {
+
+    void run(int argc, char* argv[])
+    {
+
+        cxxopts::Options options("gfmt FILE...",
+            "Global source code formatter\n");
+
+        options.add_options() //
+            ("h,help", "Display help menu") //
+            ("V,verbose", "Turn on verbose mode", cxxopts::value<bool>()) //
+            ("i,in-place", "Reformats in-place", cxxopts::value<bool>()) //
+            ("v,version", "Display version") //
+            ("c,config", "Style config file", cxxopts::value<std::string>()); //
+
+        auto result = options.parse(argc, argv);
+
+        if (result.count("help")) {
+            printf("%s\n", options.help().c_str());
+            exit(0);
+        } else if (result.count("version")) {
+            printf("gfmt version %s\n", gfmt::VERSION);
+            exit(0);
+        } else if (result.count("")) {
+            exit(0);
+        }
+    }
+}

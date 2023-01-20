@@ -1,0 +1,5 @@
+export module version;
+
+export namespace gfmt {
+    const char* VERSION = "0.1.0";
+}
